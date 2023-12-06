@@ -1,32 +1,38 @@
-# Clothing detection using YOLOv3, RetinaNet, Faster RCNN in ModaNet and DeepFashion2 datasets.
+# Clothing Detection
+# 服装検出
+![img1](img/result.png)
 
-## Datasets
+本家のREADMEは[こちら](doc/README.md)
 
-- DeepFashion2 dataset: https://github.com/switchablenorms/DeepFashion2 
+## How To Setup
 
-- ModaNet dataset: https://github.com/eBay/modanet
+```bash
+$ cd ~/catkin_ws/src
+$ git clone https://gitlab.com/TeamSOBITS/clothing_detection.git
+$ cd clothing_detection
+$ bash install.sh
+```
 
-## Models
+## How To Use
 
-- Faster RCNN, RetinaNet and Mask RCNN (only detection) trained with maskrcnn-benchmark https://github.com/facebookresearch/maskrcnn-benchmark/. To use this models please follow INSTALL instruccions in that repo and do the setup in the root folder of this repo. Not neccessary to use pytorch-nightly, you can use pytorch 1.2 instead.
+```bash
+$ roslaunch clothing_detection clothing_detect_ros.launch
+```
 
-- YOLOv3 trained with Darknet framework: https://github.com/AlexeyAB/darknet
 
-- TridenNet trained with simpledet framework https://github.com/TuSimple/simpledet
+### Publications:
+ * /rosout [rosgraph_msgs/Log]
+ * /clothing_detection/detect_result [sensor_msgs/Image]
+ * /clothing_detection/clothes_num [std_msgs/UInt8]
+ * /clothing_detection/clothes_rect [sobit_common_msg/BoundingBoxes]
+ * /clothing_detection/clothes_name [sobit_common_msg/StringArray]
 
-- To do inference use a pytorch implementation of YOLOv3: https://github.com/eriklindernoren/PyTorch-YOLOv3.
-
-- All the models trained with Resnet50 backbone, except YOLOv3 with Darknet53
-
-## Weights
-
-All weights and config files are in https://drive.google.com/drive/folders/1jXZZc5pp2OJCtmQYelzDgPzyuraAdxXP?usp=sharing
-
-## Using
-
-- Use <code>new_image_demo.py</code> , and choose dataset, and model. 
-- Use <code>YOLOv3Predictor</code> class for YOLOv3 and <code>Predictor</code> class for Faster and RetinaNet and Mask.
-
-## Coming soon
-
- - Update use of retrieval.
+### Subscriptions:
+ * /camera/rgb/image_raw [sensor_msgs/Image]
+ * /clothing_detection/detect_ctrl [std_msgs/Bool]
+ 
+ 
+### Weightsファイルについて
+Githubに移行する際に,pushが100MBの制限を設けられたため,応急処置として新サーバに上げました
+/Personal/49th/okuma/clothing_detection　の中にあります
+git cloneした後,weightsファイルを/clothing_detection/yolo/weightsの中に移動して使用してください
