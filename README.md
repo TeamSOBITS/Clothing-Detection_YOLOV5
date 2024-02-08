@@ -15,8 +15,6 @@ YOLOv5🚀は，ultralyticsによって公表されている物体検出パッ�
 yolov5_rosは，YOLOv5をROS上で実行するROSパッケージです．
 YOLOv5🚀の使用方法の詳細は<a href="https://docs.ultralytics.com/yolov5">YOLOv5 Docs</a>で確認することができます．
 
-<p align="right">(<a href="#readme-top">上に戻る</a>)</p>
-
 <!-- セットアップ -->
 ## 環境構築
 
@@ -51,7 +49,6 @@ YOLOv5🚀の使用方法の詳細は<a href="https://docs.ultralytics.com/yolov
    python3 -m pip install -r requirements.txt
    python3 -m pip uninstall utils
    ```
-<p align="right">(<a href="#readme-top">上に戻る</a>)</p>
 
 <!-- 実行・操作方法 -->
 ## 実行・操作方法
