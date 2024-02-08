@@ -61,7 +61,7 @@ YOLOv5🚀の使用方法の詳細は<a href="https://docs.ultralytics.com/yolov
   weights_df2 : deepfashion2
   weights_modanet : modanet
 
-  launch 38行　value="" : df2 or modanet 設定
+  launch 38行　value="" : df2 or modanet
   ```
 
 * clothing-detection: clothing_detect.launchを実行します．
