@@ -12,35 +12,6 @@
 
 # 服装検出
 
-<!-- 目次 -->
-<details>
-  <summary>目次</summary>
-  <ol>
-    <li>
-      <a href="#概要">概要</a>
-    </li>
-    <li>
-      <a href="#環境構築">環境構築</a>
-      <ul>
-        <li><a href="#環境条件">環境条件</a></li>
-        <li><a href="#インストール方法">インストール方法</a></li>
-      </ul>
-    </li>
-    <li><a href="#実行・操作方法">実行・操作方法</a></li>
-    <ul>
-      <li><a href="#実行方法">実行方法</a></li>
-      <li><a href="#使用topic">使用Topic</a></li>
-    </ul>
-    <li><a href="#マイルストーン">マイルストーン</a></li>
-    <li><a href="#変更履歴">変更履歴</a></li>
-    <!-- <li><a href="#contributing">Contributing</a></li> -->
-    <!-- <li><a href="#license">License</a></li> -->
-    <li><a href="#参考文献">参考文献</a></li>
-  </ol>
-</details>
-
-
-
 <!-- レポジトリの概要 -->
 ## 概要
 
