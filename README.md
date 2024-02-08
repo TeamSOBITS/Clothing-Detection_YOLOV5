@@ -1,39 +1,133 @@
-# Clothing Detection
+<a name="readme-top"></a>
+
+[JP](README.md) | [EN](template_readme_en.md)
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+<!-- [![License][license-shield]][license-url] -->
+
+# Clothing Detection_YOLOv5
+
 # 服装検出
-![img1](img/result.png)
 
-本家のREADMEは[こちら](doc/README.md)
+<!-- 目次 -->
+<details>
+  <summary>目次</summary>
+  <ol>
+    <li>
+      <a href="#概要">概要</a>
+    </li>
+    <li>
+      <a href="#環境構築">環境構築</a>
+      <ul>
+        <li><a href="#環境条件">環境条件</a></li>
+        <li><a href="#インストール方法">インストール方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#実行・操作方法">実行・操作方法</a></li>
+    <ul>
+      <li><a href="#実行方法">実行方法</a></li>
+      <li><a href="#使用topic">使用Topic</a></li>
+    </ul>
+    <li><a href="#マイルストーン">マイルストーン</a></li>
+    <li><a href="#変更履歴">変更履歴</a></li>
+    <!-- <li><a href="#contributing">Contributing</a></li> -->
+    <!-- <li><a href="#license">License</a></li> -->
+    <li><a href="#参考文献">参考文献</a></li>
+  </ol>
+</details>
 
-## How To Setup
-
-```bash
-$ cd ~/catkin_ws/src
-$ git clone https://gitlab.com/TeamSOBITS/clothing_detection.git
-$ cd clothing_detection
-$ bash install.sh
-```
-
-## How To Use
-
-```bash
-$ roslaunch clothing_detection clothing_detect_ros.launch
-```
 
 
-### Publications:
- * /rosout [rosgraph_msgs/Log]
- * /clothing_detection/detect_result [sensor_msgs/Image]
- * /clothing_detection/clothes_num [std_msgs/UInt8]
- * /clothing_detection/clothes_rect [sobit_common_msg/BoundingBoxes]
- * /clothing_detection/clothes_name [sobit_common_msg/StringArray]
+<!-- レポジトリの概要 -->
+## 概要
 
-### Subscriptions:
- * /camera/rgb/image_raw [sensor_msgs/Image]
- * /clothing_detection/detect_ctrl [std_msgs/Bool]
- 
- 
-### Weightsファイルについて
-Githubに移行する際に,pushが100MBの制限を設けられたため,応急処置として新サーバに上げました
-/Personal/49th/okuma/clothing_detection　の中にあります
-git cloneした後,weightsファイルを/clothing_detection/yolo/weightsの中に移動して使用してください
+YOLOv5を用いて服装の検出を行います。
 
+<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+<!-- <img width="100%" src="https://raw.githubusercontent.com/ultralytics/assets/main/im/banner-yolo-vision-2023.png"></a> -->
+<img width="100%" src="https://raw.githubusercontent.com/ultralytics/assets/main/yolov5/v70/splash.png"></a>
+
+YOLOv5🚀は，ultralyticsによって公表されている物体検出パッケージです．
+yolov5_rosは，YOLOv5をROS上で実行するROSパッケージです．
+YOLOv5🚀の使用方法の詳細は<a href="https://docs.ultralytics.com/yolov5">YOLOv5 Docs</a>で確認することができます．
+
+<p align="right">(<a href="#readme-top">上に戻る</a>)</p>
+
+<!-- セットアップ -->
+## 環境構築
+
+### 環境条件
+
+* OS: Ubuntu20.04
+* ROS distribution: noetic
+* Python: 3.8.10
+* Pytorch: 1.13.1
+* Package: sobit_common
+### インストール方法
+
+1. yolov5_rosをworkspace上にclone
+   ```
+   cd catkin_ws/src/
+   git clone https://github.com/TeamSOBITS/yolov5_ros.git
+   ```
+2. sobit_commonのインストール
+   ```
+   cd catkin_ws/src/
+   git clone https://github.com/TeamSOBITS/sobit_common.git
+   ```
+3. yolov5_ros/srcにyolov5の公式パッケージをインストール
+   ```
+   cd catkin_ws/src/
+   git clone https://github.com/ultralytics/yolov5.git
+   ```
+4. 必要なpythonモジュールをインストール
+   ```
+   cd catkin_ws/src/yolov5_ros/src/yolov5
+   python3 -m pip install --upgrade pip
+   python3 -m pip install -r requirements.txt
+   python3 -m pip uninstall utils
+   ```
+<p align="right">(<a href="#readme-top">上に戻る</a>)</p>
+
+<!-- 実行・操作方法 -->
+## 実行・操作方法
+
+<!-- デモの実行方法やスクリーンショットがあるとわかりやすくなるでしょう -->
+### 実行方法
+* weightsファイルの準備
+**weightsファイルはfolk先にあるデータセットを用いて学習を行ってください。
+  ```
+  weights_df2 : deepfashion2
+  weights_modanet : modanet
+
+  launch 38行　value="" : df2 or modanet 設定
+  ```
+
+* clothing-detection: clothing_detect.launchを実行します．
+   ```
+   roslaunch clothing-detection_YOLOV5 clothing_detect.launch
+   ```
+### 使用Topic
+* 使用msg一覧
+   ```
+   Boundingbox (sobits_msgs)
+   BoundingBoxes (sobits_msgs)
+   StringArray (sobits_msgs)
+   ObjectPose (sobits_msgs)
+   ObjectPoseArray (sobits_msgs)
+   Image (sensor_msgs)
+   CompressedImage (sensor_msgs)
+   ```
+
+* Subscribe Topics
+   ```
+   '/camera/rgb/image_raw'(sensor_msgs/Image): YOLOv5への入力画像
+   ```
+* Publish Topics
+   ```
+   'output_topic'(yolov5/clothes_detections_list): 服装の推論結果のリスト
+   'output_image_topic'(yolov5/clothes_image_out): 服装の推論結果の画像
+   ```
